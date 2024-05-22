@@ -15,5 +15,15 @@ add_subdirectory(vendor/glfw)
 include_directories(vendor/glew/include)
 include_directories(vendor/glfw/include)
 
+# Copy chaders into build folder.
+add_custom_target(
+    copy_assets
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/shaders
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/shaders ${CMAKE_BINARY_DIR}/shaders
+    COMMENT "Copying ${CMAKE_SOURCE_DIR}/shaders to ${CMAKE_BINARY_DIR}/shaders."
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+)
+
 add_executable(OpenGL main.cpp)
 target_link_libraries(OpenGL glew glfw)
+add_dependencies(OpenGL copy_assets)
