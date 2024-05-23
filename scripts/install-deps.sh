@@ -63,8 +63,6 @@ download_and_unzip() {
 command -v curl >/dev/null 2>&1 || { echo >&2 "curl is required but it's not installed. Aborting."; exit 1; }
 command -v unzip >/dev/null 2>&1 || { echo >&2 "unzip is required but it's not installed. Aborting."; exit 1; }
 
-# Acquire GLEW.
+# Acquire sources.
 download_and_unzip "$GLEW_URL" "glew" "$GLEW_VERSION"
-
-# Acquire GLFW.
 download_and_unzip "$GLFW_URL" "glfw" "$GLFW_VERSION"

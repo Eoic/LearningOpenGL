@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
+include(FetchContent)
 project(OpenGL)
 set(CMAKE_CXX_STANDARD 20)
 
@@ -15,6 +16,15 @@ add_subdirectory(vendor/glfw)
 include_directories(vendor/glew/include)
 include_directories(vendor/glfw/include)
 
+# GLM
+FetchContent_Declare(
+	glm
+	GIT_REPOSITORY	https://github.com/g-truc/glm.git
+	GIT_TAG 	    0af55ccecd98d4e5a8d1fad7de25ba429d60e863
+)
+
+FetchContent_MakeAvailable(glm)
+
 # Copy chaders into build folder.
 add_custom_target(
     copy_assets
@@ -25,5 +35,5 @@ add_custom_target(
 )
 
 add_executable(OpenGL main.cpp)
-target_link_libraries(OpenGL glew glfw)
+target_link_libraries(OpenGL PRIVATE glew glfw glm::glm)
 add_dependencies(OpenGL copy_assets)
